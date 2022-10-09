@@ -37,12 +37,10 @@ export function ShoppingList() {
   }, [activeItems, allItems]);
 
   useEffect(() => {
-    if (searchInput) {
-      const results = search(searchInput, symmetricDifference, {
-        keySelector: ({ name }) => name.de,
-      }).slice(0, 11);
-      setFilteredItems(results || []);
-    }
+    const results = search(searchInput, symmetricDifference, {
+      keySelector: ({ name }) => name.de,
+    }).slice(0, 11);
+    setFilteredItems(results || []);
   }, [searchInput, symmetricDifference]);
 
   function handleOnAdd(item) {
@@ -53,12 +51,30 @@ export function ShoppingList() {
     searchInputElement.current.focus();
   }
 
+  function handleOnRemove(item) {
+    setActiveItems(
+      activeItems.filter((activeItem) => activeItem._id !== item._id)
+    );
+  }
+
   return (
     <Stack space="1rem">
       <Header>
         <h1>{"Einkaufsliste"}</h1>
       </Header>
       <Stack space="2rem">
+        <ItemList>
+          {activeItems.map((item) => (
+            <Item
+              key={item._id}
+              item={item}
+              onSelect={handleOnRemove}
+              type={"active"}
+            >
+              {item}
+            </Item>
+          ))}
+        </ItemList>
         <h2>Was willst du einkaufen?</h2>
         <SearchInput
           ref={searchInputElement}
