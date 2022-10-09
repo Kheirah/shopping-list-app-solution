@@ -2,13 +2,21 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Item } from "./Item";
 import { search } from "fast-fuzzy";
+import {
+  saveToLocalStorage,
+  loadFromLocalStorage,
+} from "../utils/localStorage";
+
+const LOCAL_STORAGE_KEY = "shopping-list-active-items";
 
 export function ShoppingList() {
   const [allItems, setAllItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const [symmetricDifference, setSymmetricDifference] = useState([]);
-  const [activeItems, setActiveItems] = useState([]);
+  const [activeItems, setActiveItems] = useState(
+    loadFromLocalStorage(LOCAL_STORAGE_KEY) ?? []
+  );
 
   const searchInputElement = useRef();
 
@@ -27,6 +35,10 @@ export function ShoppingList() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    saveToLocalStorage(LOCAL_STORAGE_KEY, activeItems);
+  }, [activeItems]);
 
   useEffect(() => {
     setSymmetricDifference(
