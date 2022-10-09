@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import { ShoppingList } from "./components/ShoppingList";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <ShoppingList />
+    </Container>
   );
 }
+
+const Container = styled.main`
+  max-width: 30rem;
+  padding: 1.5rem 0.75rem;
+  margin: 0 auto;
+`;
 
 export default App;
