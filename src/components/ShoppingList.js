@@ -37,12 +37,10 @@ export function ShoppingList() {
   }, [activeItems, allItems]);
 
   useEffect(() => {
-    if (searchInput) {
-      const results = search(searchInput, symmetricDifference, {
-        keySelector: ({ name }) => name.de,
-      }).slice(0, 11);
-      setFilteredItems(results || []);
-    }
+    const results = search(searchInput, symmetricDifference, {
+      keySelector: ({ name }) => name.de,
+    }).slice(0, 11);
+    setFilteredItems(results || []);
   }, [searchInput, symmetricDifference]);
 
   function handleOnAdd(item) {
