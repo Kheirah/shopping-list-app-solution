@@ -59,7 +59,6 @@ export function ShoppingList() {
     setActiveItems([...activeItems, item]);
     setFilteredItems([]);
     setSearchInput("");
-    searchInputElement.current.value = "";
     searchInputElement.current.focus();
   }
 
@@ -90,6 +89,7 @@ export function ShoppingList() {
         <h2>Was willst du einkaufen?</h2>
         <SearchInput
           ref={searchInputElement}
+          value={searchInput}
           type="text"
           placeholder="Tippe um zu suchen..."
           onChange={(event) => setSearchInput(event.target.value)}
